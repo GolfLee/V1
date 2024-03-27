@@ -1,0 +1,93 @@
+===INPut===
+
+[:INPut]:MODE
+Function Sets or queries the voltage and current 
+measurement mode.
+Syntax [:INPut]:MODE {RMS|VMEan|DC} 
+[:INPut]:MODE?
+Example :INPUT:MODE RMS 
+:INPUT:MODE? -> :INPUT:MODE RMS
+
+[:INPut]:VOLTage:AUTO
+Function Sets or queries the voltage auto range on/off 
+state.
+Syntax [:INPut]:VOLTage:AUTO {<Boolean>} 
+[:INPut]:VOLTage:AUTO?
+Example :INPUT:VOLTAGE:AUTO ON 
+:INPUT:VOLTAGE:AUTO? 
+-> :INPUT:VOLTAGE:AUTO 1
+
+[:INPut]:CURRent:AUTO
+Function Sets or queries the current auto range on/off 
+state.
+Syntax [:INPut]:CURRent:AUTO {<Boolean>} 
+[:INPut]:CURRent:AUTO?
+Example :INPUT:CURRENT:AUTO ON 
+:INPUT:CURRENT:AUTO? 
+-> :INPUT:CURRENT:AUTO 1
+
+===INTEGrate===
+
+:INTEGrate?
+Function Queries all integration settings.
+Syntax :INTEGrate?
+
+:INTEGrate:MODE
+Function Sets or queries the integration mode.
+Syntax :INTEGrate:MODE {NORMal|CONTinuous} 
+
+:INTEGrate:MODE? 
+NORMal = Standard integration mode
+CONTinuous = Continuous integration mode
+Example :INTEGRATE:MODE NORMAL 
+
+:INTEGRATE:MODE? 
+-> :INTEGRATE:MODE NORMAL
+
+:INTEGrate:TIMer
+Function Sets or queries the integration timer value.
+Syntax :INTEGrate:TIMer {<NRf>,<NRf>,<NRf>} 
+
+:INTEGrate:TIMer? 
+{<NRf>,<NRf>,<NRf>} = 0,0,0 to 
+10000,0,0 
+First <NRf> = 0 to 10000 (hours)
+Second <NRf> = 0 to 59 (minutes)
+Third <NRf> = 0 to 59 (seconds)
+Example :INTEGRATE:TIMER 1,0,0 
+:INTEGRATE:TIMER? 
+-> :INTEGRATE:TIMER 1,0,0
+
+:INTEGrate:STARt
+Function Starts integration.
+Syntax :INTEGrate:STARt
+Example :INTEGRATE:START
+
+:INTEGrate:STOP
+Function Stops integration.
+Syntax :INTEGrate:STOP
+Example :INTEGRATE:STOP
+
+===MEASure===
+
+:MEASure:AVERaging[:STATe]
+Function Sets or queries the on/off state of averaging.
+Syntax :MEASure:AVERaging[:STATe] 
+{<Boolean>} 
+:MEASure:AVERaging:STATe?
+Example :MEASURE:AVERAGING:STATE ON 
+:MEASURE:AVERAGING:STATE? 
+-> :MEASURE:AVERAGING:STATE 1
+
+:MEASure:AVERaging:TYPE
+Function Sets or queries the averaging type.
+Syntax :MEASure:AVERaging:TYPE 
+{LINear|EXPonent} 
+:MEASure:AVERaging:TYPE?
+Example :MEASURE:AVERAGING:TYPE LINEAR 
+:MEASURE:AVERAGING:TYPE? 
+-> :MEASURE:AVERAGING:TYPE LINEAR
+Description The averaging of harmonic measurement 
+functions (option) is only valid when the type 
+is set to EXPonent. For details, see the User’s 
+Manual, IM WT310-01EN.

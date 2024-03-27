@@ -1,0 +1,167 @@
+
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "decl.h"
+
+void gpiberr(char *msg);
+void dvmerr(char *msg, char *rd);
+
+  char     read[512];                    /* read data buffer                */
+  int      bd,                           /* board or device number          */
+           i;                            /* FOR loop counter                */
+
+
+void main() {
+
+    clrscr();
+
+    gotoxy(3,2);
+    printf("CFxx Series demo Program ...............");
+
+    bd = ibfind ("GPIB0");
+    if (bd < 0) gpiberr("ibfind Error");
+
+/*  Send the Interface Clear (IFC) message.     */
+
+    ibsic (bd);
+    if (ibsta & ERR) gpiberr("ibsic Error");
+
+/*  Turn on the Remote Enable (REN) signal.     */
+
+    ibsre (bd,1);
+    if (ibsta & ERR) gpiberr("ibsre Error");
+
+/*
+ *  Inhibit front panel control with the Local Lockout (LLO) command
+ *  (hex 11).  Place the IDRC CP-600 in remote mode by addressing it to listen
+ *  (hex 26 or ASCII "&").  Send the Device Clear (DCL) message to clear
+ *  internal device functions (hex 14).  Address the GPIB interface board to
+ *  talk (hex 40 or ASCII "@").
+ */
+
+    ibcmd (bd,"\021&\024@",4L);
+    if (ibsta & ERR) gpiberr("ibcmd Error");
+
+    /* set range to 150V          */
+    ibwrt (bd,":SOUR:RANG LOW;", 15L);
+    if (ibsta & ERR) gpiberr("ibwrt Error");
+
+    /* set voltage to 100V        */
+    ibwrt (bd,":SOUR:VOLT 100;", 15L);
+    if (ibsta & ERR) gpiberr("ibwrt Error");
+
+    /* set frequency to 60Hz      */
+    ibwrt (bd,":SOUR:FREQ 60;", 14L);
+    if (ibsta & ERR) gpiberr("ibwrt Error");
+
+    /* set start phase            */
+    ibwrt (bd,":SOUR:STPH  0;", 14L);
+    if (ibsta & ERR) gpiberr("ibwrt Error");
+
+    /* set stop phase             */
+    ibwrt (bd,":SOUR:SPPH  0;", 14L);
+    if (ibsta & ERR) gpiberr("ibwrt Error");
+
+    /* output relay on            */
+    ibwrt (bd,":OUTP ON;", 9L);
+    if (ibsta & ERR) gpiberr("ibwrt Error");
+
+    /* turn on signal             */
+    ibwrt (bd,":SOUR:TURN ON;", 14L);
+    if (ibsta & ERR) gpiberr("ibwrt Error");
+
+    sleep(3);
+    /* set voltage to 120V        */
+    ibwrt (bd,":SOUR:VOLT 120;", 15L);
+    if (ibsta & ERR) gpiberr("ibwrt Error");
+
+    sleep(3);
+    /* set frequency to 50Hz      */
+    ibwrt (bd,":SOUR:FREQ 50;", 14L);
+    if (ibsta & ERR) gpiberr("ibwrt Error");
+
+    sleep(3);
+    /* set voltage to 90V         */
+    ibwrt (bd,":SOUR:VOLT 90;", 14L);
+    if (ibsta & ERR) gpiberr("ibwrt Error");
+
+    sleep(3);
+    /* turn on signal             */
+    ibwrt (bd,":SOUR:TURN OFF;", 15L);
+    if (ibsta & ERR) gpiberr("ibwrt Error");
+
+    sleep(3);
+
+/*  Call the ibonl function to disable the hardware and software.           */
+
+    ibonl (bd,0);
+
+}
+
+void gpiberr(char *msg) {
+
+    printf ("%s\n", msg);
+
+    printf ("ibsta = &H%x  <", ibsta);
+    if (ibsta & ERR )  printf (" ERR");
+    if (ibsta & TIMO)  printf (" TIMO");
+    if (ibsta & END )  printf (" END");
+    if (ibsta & SRQI)  printf (" SRQI");
+    if (ibsta & RQS )  printf (" RQS");
+    if (ibsta & SPOLL) printf (" SPOLL");
+    if (ibsta & EVENT) printf (" EVENT");
+    if (ibsta & CMPL)  printf (" CMPL");
+    if (ibsta & LOK )  printf (" LOK");
+    if (ibsta & REM )  printf (" REM");
+    if (ibsta & CIC )  printf (" CIC");
+    if (ibsta & ATN )  printf (" ATN");
+    if (ibsta & TACS)  printf (" TACS");
+    if (ibsta & LACS)  printf (" LACS");
+    if (ibsta & DTAS)  printf (" DTAS");
+    if (ibsta & DCAS)  printf (" DCAS");
+    printf (" >\n");
+ 
+    printf ("iberr = %d", iberr);
+    if (iberr == EDVR) printf (" EDVR <DOS Error>\n");
+    if (iberr == ECIC) printf (" ECIC <Not CIC>\n");
+    if (iberr == ENOL) printf (" ENOL <No Listener>\n");
+    if (iberr == EADR) printf (" EADR <Address error>\n");
+    if (iberr == EARG) printf (" EARG <Invalid argument>\n");
+    if (iberr == ESAC) printf (" ESAC <Not Sys Ctrlr>\n");
+    if (iberr == EABO) printf (" EABO <Op. aborted>\n");
+    if (iberr == ENEB) printf (" ENEB <No GPIB board>\n");
+    if (iberr == EOIP) printf (" EOIP <Async I/O in prg>\n");
+    if (iberr == ECAP) printf (" ECAP <No capability>\n");
+    if (iberr == EFSO) printf (" EFSO <File sys. error>\n");
+    if (iberr == EBUS) printf (" EBUS <Command error>\n");
+    if (iberr == ESTB) printf (" ESTB <Status byte lost>\n");
+    if (iberr == ESRQ) printf (" ESRQ <SRQ stuck on>\n");
+    if (iberr == ETAB) printf (" ETAB <Table Overflow>\n");
+ 
+    printf ("ibcnt = %d\n", ibcnt);
+    printf ("\n");
+
+/*  Call the ibonl function to disable the hardware and software.           */
+
+    ibonl (bd,0);
+
+    exit(1);
+
+}
+
+void dvmerr(char *msg,char *rd) {
+
+    printf ("%s\n", msg);
+    printf("Status byte = %x\n", rd[0]);
+
+/*  Call the ibonl function to disable the hardware and software.           */
+
+    ibonl (bd,0);
+
+    exit(1);
+}
+
+
+

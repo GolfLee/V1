@@ -1,0 +1,12 @@
+ibfind("GPIB0")：尋找並返回與"GPIB0"相關聯的設備的描述符。
+ibsic(bd)：發送介面清除（Interface Clear, IFC）命令。
+ibsre(bd,1)：開啟遠端啟用（Remote Enable, REN）信號。
+ibcmd(bd,"\021&\024@",4L)：發送一系列GPIB命令，包括本地鎖定（Local Lockout, LLO）、設備清除（Device Clear, DCL）等。
+ibwrt(bd,":SOUR:RANG LOW;", 15L)：設定儀器的範圍為低（150V）。
+ibwrt(bd,":SOUR:VOLT 100;", 15L)：設定儀器的輸出電壓為100V。
+ibwrt(bd,":SOUR:FREQ 60;", 14L)：設定儀器的頻率為60Hz。
+ibwrt(bd,":SOUR:STPH  0;", 14L) 和 ibwrt(bd,":SOUR:SPPH  0;", 14L)：設定起始和停止相位為0。
+ibwrt(bd,":OUTP ON;", 9L)：開啟輸出繼電器。
+ibwrt(bd,":SOUR:TURN ON;", 14L)：開啟信號輸出。
+ibwrt(bd,":SOUR:TURN OFF;", 15L);：發送命令關閉信號源。
+ibonl(bd,0);：呼叫ibonl函數來禁用硬件和軟件。
