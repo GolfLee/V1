@@ -29,11 +29,12 @@
 			<Item Name="Error Handler - Message Handling Loop.vi" Type="VI" URL="../support/Error Handler - Message Handling Loop.vi"/>
 		</Item>
 		<Item Name="Type Definitions" Type="Folder">
+			<Item Name="Control 3.ctl" Type="VI" URL="../controls/Control 3.ctl"/>
 			<Item Name="UI Data.ctl" Type="VI" URL="../controls/UI Data.ctl"/>
+			<Item Name="UI Data2.ctl" Type="VI" URL="../controls/UI Data2.ctl"/>
 		</Item>
-		<Item Name="Control 3.ctl" Type="VI" URL="../controls/Control 3.ctl"/>
 		<Item Name="Main.vi" Type="VI" URL="../Main.vi"/>
-		<Item Name="UI Data2.ctl" Type="VI" URL="../controls/UI Data2.ctl"/>
+		<Item Name="RLY_Select.vi" Type="VI" URL="../../VIs/RLY_Select.vi"/>
 		<Item Name="Dependencies" Type="Dependencies">
 			<Item Name="instr.lib" Type="Folder">
 				<Item Name="Prodigit 331xF Series.lvlib" Type="Library" URL="/&lt;instrlib&gt;/Prodigit 331xF Series/Prodigit 331xF Series.lvlib"/>
