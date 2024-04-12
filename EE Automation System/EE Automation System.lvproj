@@ -36,6 +36,7 @@
 		<Item Name="Counter.vi" Type="VI" URL="../../VIs/Counter.vi"/>
 		<Item Name="Main.vi" Type="VI" URL="../Main.vi"/>
 		<Item Name="RLY_Select.vi" Type="VI" URL="../../VIs/RLY_Select.vi"/>
+		<Item Name="Socket_Select.vi" Type="VI" URL="../../VIs/Socket_Select.vi"/>
 		<Item Name="Dependencies" Type="Dependencies">
 			<Item Name="instr.lib" Type="Folder">
 				<Item Name="Prodigit 331xF Series.lvlib" Type="Library" URL="/&lt;instrlib&gt;/Prodigit 331xF Series/Prodigit 331xF Series.lvlib"/>
