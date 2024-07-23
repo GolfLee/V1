@@ -82,6 +82,8 @@
 			</Item>
 			<Item Name="AC_Source_VISA.vi" Type="VI" URL="../../VIs/AC_Source_VISA.vi"/>
 			<Item Name="Serial - Settings.ctl" Type="VI" URL="/C/Program Files (x86)/National Instruments/LabVIEW 2019/examples/Instrument IO/Serial/support/Serial - Settings.ctl"/>
+			<Item Name="UI Data.ctl" Type="VI" URL="../controls/UI Data.ctl"/>
+			<Item Name="RLY_Select.vi" Type="VI" URL="../../VIs/RLY_Select.vi"/>
 		</Item>
 		<Item Name="Build Specifications" Type="Build">
 			<Item Name="Main Application" Type="EXE">
